@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}<!---Hereda de Layaout--->
+{% block body %}<!---El contenido que se va a cambiar --->
+
+<div class="row">
+	<div class="col-md-5">	
+		<!---codigo del mensaje arriba de la tarjeta--->
+		<!---comprobacion del mensaje flush--->
+		{% with mensajes = get_flashed_messages() %} <!---retorna los mensajes que posiblemente se envien del server--->
+		<!---una vez creada la variable comprobamos si tiene algo o no--->
+		{% if mensajes %} <!---si existe mensaje lo recorremos   --->
+		<!---recorrer el arreglo-    --->
+		{% for mensaje in mensajes %}<!---para cada mensaje en el arreglo de mensajes   --->
+
+		<div class="alert alert-success lert-dismissible fade show" role="alert">
+		  {{ mensaje }}
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
+		<div class="card card-body">
+			<!---Pedira una sesion iniciada--->
+		<form action="/agregar_contacto" method="POST"  >
+			<div class="form-group">
+			<input type="text" name="nombre" placeholder="Nombre" class="form-control" >	
+			</div>
+			<div class="form-group">
+			<input type="text" name="telefono" placeholder="Telefono" class="form-control" >	
+			</div>
+			<div class="form-group">
+			<input type="text" name="mail" placeholder="Mail" class="form-control" >	
+			</div>
+			<div class="form-group">
+			<button type="submit" class="btn btn-primary btn-block" >Guardar</button>
+			<!---se envia a la ruta '/agregar_contacto'--->
+			</div>
+			
+		</form>
+		</div>
+	</div>	
+	<div class="col-md-7">
+		<!---tabla para listar los datos--->
+	<table class="table table-striped table-bordered bg-white">
+	<thead>
+		<tr>
+			<td>Nombre</td>
+			<td>Telefono</td>
+			<td>Mail</td>
+			<td>Operaciones</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for contacto in contactos %}
+			<tr>
+				<!---tener en cuenta en cuenta que contactos es una tupla--->
+				<td>{{ contacto.1 }}</td> <!---fila por cada dato que exista se usa las dobles llaves porque se usara el valor y no un nombre --->
+				<td>{{ contacto.2 }}</td>
+				<td>{{ contacto.3 }}</td>
+				<!---enlaces para editar y eliminar //se le pasa el id contacto.0--->		
+				<td> <a class="btn btn-primary" href="/editar/{{contacto.0}}">Editar</a>&nbsp;<a class="btn btn-danger btn-eliminar" href="/eliminar/{{contacto.0}}">Eliminar</a> </td>
+			</tr>
+			{% endfor%}
+		</tbody>
+	</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

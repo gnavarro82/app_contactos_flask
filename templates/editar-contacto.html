@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+	<!---tarjeta centrada --->
+<div class="col-md-4 offset-md-4">
+<div class="card card-body">
+<form action="/actualizar/{{ contacto.0 }}" method="POST"  >
+<div class="form-group"><input class="form-control" type="text" name="nombre" placeholder="Nombre" value="{{ contacto.1 }}"></div>
+<div class="form-group"><input class="form-control" type="text" name="telefono" placeholder="Telefono" value="{{ contacto.2 }}"></div>
+<div class="form-group"><input class="form-control" type="text" name="mail" placeholder="Mail" value="{{ contacto.3 }}"></div>
+
+<div class="form-group"><button type="submit" class="btn btn-primary">Guardar</button>
+	<!---se envia a la ruta '/agregar_contacto'---></div>
+
+
+
+	
+	
+	
+	
+</form>	
+</div>
+	
+</div>
+
+
+
+
+{% endblock %}
